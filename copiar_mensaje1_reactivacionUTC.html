@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Copiar Texto</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background: transparent;
+      font-family: Arial, sans-serif;
+    }
+    button {
+      padding: 1em 2em;
+      background: #33A4D8;
+      color: white;
+      font-size: 1.2em;
+      font-weight: bold;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+      transition: background 0.3s;
+    }
+    button:hover {
+      background: #33A4D8;
+    }
+  </style>
+</head>
+<body>
+  <button id="btn"> Copiar Texto</button>
+
+  <script>
+    const texto = `👋 *Hola!*
+
+¿Sabías que más de *40,000 alumnos* ya están estudiando en *UTC* y más de *21,000* ya se han graduado con nosotros? 🎓💪
+
+Queremos que tú también formes parte de esta comunidad que está transformando su futuro con una educación de calidad 🧠🚀
+
+📌 Si aún estás interesado en estudiar con nosotros, este es el *momento ideal* para retomar tu proceso.
+
+🎁 *Inscripción GRATIS*  
+🎓 *Hasta 65% de beca*  
+💸 *$500 de apoyo* en tu primer pago
+
+📲 *Responde este mensaje* y con gusto te comparto toda la info sobre carreras, planteles y beneficios que tenemos para ti. 😉`;
+
+    document.getElementById("btn").addEventListener("click", () => {
+      // Intento con la API moderna
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(texto).then(() => {
+          document.getElementById("btn").textContent = "¡Copiado!";
+        }).catch(() => usarFallback());
+      } else {
+        usarFallback();
+      }
+    });
+
+    function usarFallback() {
+      const area = document.createElement("textarea");
+      area.value = texto;
+      document.body.appendChild(area);
+      area.select();
+      document.execCommand("copy");
+      document.body.removeChild(area);
+      document.getElementById("btn").textContent = "¡Copiado!";
+    }
+  </script>
+</body>
+</html>
