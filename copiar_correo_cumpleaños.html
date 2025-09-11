@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Copiar Texto</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background: transparent;
+      font-family: Arial, sans-serif;
+    }
+    button {
+      padding: 1em 2em;
+      background: #b2e084;
+      color: white;
+      font-size: 1.2em;
+      font-weight: bold;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+      transition: background 0.3s;
+    }
+    button:hover {
+      background: #b2e084;
+    }
+  </style>
+</head>
+<body>
+  <button id="btn"> Copiar Texto</button>
+
+  <script>
+    const texto = `🎉 Asunto: Solicitud de día de cumpleaños – [Nombre del colaborador] – [Línea de negocio]
+
+✉️ Cuerpo del correo:
+
+Hola, equipo 👋
+Espero que se encuentren muy bien.
+
+Con mucha emoción, me acerco a ustedes para solicitar mi día de cumpleaños, como parte del beneficio que nos brindan. Les comparto los detalles:
+
+Nombre del colaborador: [Tu nombre completo]
+Línea de negocio: [Ej. ULA Online, UTC Presencial, Vinculación, etc.]
+Fecha de cumpleaños: [Tu fecha de nacimiento]
+
+Agradezco mucho este espacio que nos permiten disfrutar, y quedo pendiente para cualquier validación o coordinación necesaria con el equipo.
+¡Gracias por hacerlo posible! 🎂🎈
+
+Saludos.`;
+
+    document.getElementById("btn").addEventListener("click", () => {
+      // Intento con la API moderna
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(texto).then(() => {
+          document.getElementById("btn").textContent = "¡Copiado!";
+        }).catch(() => usarFallback());
+      } else {
+        usarFallback();
+      }
+    });
+
+    function usarFallback() {
+      const area = document.createElement("textarea");
+      area.value = texto;
+      document.body.appendChild(area);
+      area.select();
+      document.execCommand("copy");
+      document.body.removeChild(area);
+      document.getElementById("btn").textContent = "¡Copiado!";
+    }
+  </script>
+</body>
+</html>
