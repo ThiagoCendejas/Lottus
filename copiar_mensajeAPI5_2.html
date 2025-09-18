@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Copiar Mensaje</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background: transparent;
+      font-family: Arial, sans-serif;
+    }
+    button {
+      padding: 1em 2em;
+      background: #33a4d8;
+      color: white;
+      font-size: 1.2em;
+      font-weight: bold;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+      transition: background 0.3s;
+    }
+    button:hover {
+      background: #33a4d8;
+    }
+  </style>
+</head>
+<body>
+  <button id="btn"> Copiar Mensaje</button>
+
+  <script>
+    const texto = `Hola (Nombre prospecto)👋.
+
+Te recordamos tu cita mañana (Día) a las (Hora) en (Lugar). ¿Confirmas asistencia?🗓️.`;
+
+    document.getElementById("btn").addEventListener("click", () => {
+      // Intento con la API moderna
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(texto).then(() => {
+          document.getElementById("btn").textContent = "¡Copiado!";
+        }).catch(() => usarFallback());
+      } else {
+        usarFallback();
+      }
+    });
+
+    function usarFallback() {
+      const area = document.createElement("textarea");
+      area.value = texto;
+      document.body.appendChild(area);
+      area.select();
+      document.execCommand("copy");
+      document.body.removeChild(area);
+      document.getElementById("btn").textContent = "¡Copiado!";
+    }
+  </script>
+</body>
+</html>
