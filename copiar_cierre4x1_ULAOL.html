@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>COPIAR MENSAJE</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      background: transparent;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    button {
+      padding: 1.6em 3.2em;          /* 🔥 BOTÓN GRANDE */
+      background: #00837e;
+      color: white;
+      font-size: 1.5em;
+      font-weight: bold;
+      border: none;
+      border-radius: 14px;
+      cursor: pointer;
+      box-shadow: 0 6px 10px rgba(0,0,0,0.25);
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 8px 14px rgba(0,0,0,0.3);
+    }
+
+    button:active {
+      transform: scale(0.98);
+    }
+  </style>
+</head>
+<body>
+
+  <button id="btn">COPIAR MENSAJE</button>
+
+  <script>
+    const texto = `¿Cumplimos con tus expectativas para iniciar tu Licenciatura? 🎓.
+¡Perfecto! Ahora hablemos de la inversión 💰.
+
+*COSTOS:*
+*Colegiatura:* $4,135.42
+*Inscripción:* $1, 500
+*Reincorporación SEP:* $499
+_Pottencia:_ $200
+
+¡Pero espera! Tenemos becas de hasta *85%* en tu primer pago 🎉.
+
+Con beca, la inversión queda así:
+Primer pago: *$620.31*
+
+¿Qué te parece? ¡Se ajusta mucho más a tu presupuesto! 💸
+
+*Si te interesa:*
+¿Comenzamos con tu inscripción? 📝
+
+*Si no te interesa:*
+Entiendo, ¿qué te detiene? 🤔 ¿Es un tema de costos?
+
+*Si mencionas costos:*
+¡Lo entiendo! Pero, ¿si puedo ofrecerte más beneficios, tomarías la decisión? 💬
+
+*Si es positivo:*
+¡Excelente! Logré obtener beneficios adicionales para ti:
+1️⃣ Eliminamos la inscripción (Ahorro de $1,500)
+2️⃣ Acceso gratuito a nuestras bibliotecas virtuales y Office 365 durante toda tu carrera
+
+¿Te gustaría aprovechar estos beneficios y comenzar ahora?`;
+    const btn = document.getElementById("btn");
+
+    btn.addEventListener("click", () => {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(texto).then(() => {
+          btn.textContent = "¡Copiado!";
+        }).catch(() => usarFallback());
+      } else {
+        usarFallback();
+      }
+    });
+
+    function usarFallback() {
+      const area = document.createElement("textarea");
+      area.value = texto;
+      document.body.appendChild(area);
+      area.select();
+      document.execCommand("copy");
+      document.body.removeChild(area);
+      btn.textContent = "¡Copiado!";
+    }
+  </script>
+</body>
+</html>
