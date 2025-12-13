@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>COPIAR MENSAJE</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      background: transparent;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    button {
+      padding: 1.6em 3.2em;          /* 🔥 BOTÓN GRANDE */
+      background: #00837e;
+      color: white;
+      font-size: 1.5em;
+      font-weight: bold;
+      border: none;
+      border-radius: 14px;
+      cursor: pointer;
+      box-shadow: 0 6px 10px rgba(0,0,0,0.25);
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 8px 14px rgba(0,0,0,0.3);
+    }
+
+    button:active {
+      transform: scale(0.98);
+    }
+  </style>
+</head>
+<body>
+
+  <button id="btn">COPIAR MENSAJE</button>
+
+  <script>
+    const texto = `Estudiar en *ULA* es una excelente decisión si buscas flexibilidad, calidad académica y una ruta clara para titularte 🎓.
+    
+    *🎯 Duración – Sistema cuatrimestral:*
+- *4x1:* estudias _una materia por mes_ (ideal si trabajas).
+- *5x1:* avanzas aún más rápido con _cinco materias por cuatrimestre_.
+
+*📜 Titulación Directa:*
+Sin tesis, sin examen, sin promedio mínimo.
+
+*💻 Modalidad 100% Online:*
+- Clases por la noche (martes, miércoles o jueves)
+- _No se evalúa asistencia_
+- Acceso a clases grabadas
+- Plataforma disponible 24/7
+
+*📘 Evaluación amigable:*
+1️⃣ Actividades prácticas
+2️⃣ Proyectos dentro de la plataforma
+3️⃣ Quizzes cortos
+
+¿Quieres que te mande el plan de estudios y las oportunidades laborales? 🌟.`;
+    const btn = document.getElementById("btn");
+
+    btn.addEventListener("click", () => {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(texto).then(() => {
+          btn.textContent = "¡Copiado!";
+        }).catch(() => usarFallback());
+      } else {
+        usarFallback();
+      }
+    });
+
+    function usarFallback() {
+      const area = document.createElement("textarea");
+      area.value = texto;
+      document.body.appendChild(area);
+      area.select();
+      document.execCommand("copy");
+      document.body.removeChild(area);
+      btn.textContent = "¡Copiado!";
+    }
+  </script>
+
+</body>
+</html>
