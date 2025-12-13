@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>COPIAR MENSAJE</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      background: transparent;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    button {
+      padding: 1.6em 3.2em;
+      background: #33a4d8;          /* 🔵 COLOR UTC */
+      color: #ffffff;
+      font-size: 1.5em;
+      font-weight: bold;
+      border: none;
+      border-radius: 14px;
+      cursor: pointer;
+      box-shadow: 0 6px 10px rgba(0,0,0,0.25);
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 8px 14px rgba(0,0,0,0.3);
+    }
+
+    button:active {
+      transform: scale(0.98);
+    }
+  </style>
+</head>
+<body>
+
+  <button id="btn">COPIAR MENSAJE</button>
+
+  <script>
+    const texto = `¿Cumplimos con tus expectativas para iniciar tu Maestría? 🎓.
+    ¡Perfecto! Ahora hablemos de la _inversión_ 💰.
+    
+    *COSTOS:*
+    *Mensualidad:* $3,611.11
+    
+    ¡Pero espera! Tenemos becas de hasta el *84% en tu primer pago* y hasta *60% en tu primer cuatrimestre* 🎉.
+    
+    Con beca, la inversión queda así:
+*Primer pago:* $577.78
+*Mensualidad (cuatris 2-4):* $1,444.44
+*Reinscripción:* $1,625
+*Reincorporación SEP:* $500
+_Pottencia:_ $200
+
+¿Qué te parece? ¡Se ajusta mucho más a tu presupuesto! 💸
+
+*Si te interesa:*
+¿Iniciamos tu proceso de inscripción? 📝
+
+*Si no te interesa:*
+Entiendo, ¿qué te detiene? 🤔 ¿Es un tema de costos?
+
+*Si mencionas costos:*
+¡Te entiendo! Pero si pudiera mejorar tu beneficio... ¿lo considerarías? 💬
+
+*Si es positivo:*
+¡Excelente! Logré obtener beneficios adicionales para ti:
+1️⃣ Eliminamos la inscripción (Ahorro de $1,500)
+2️⃣ Acceso gratuito a nuestras bibliotecas virtuales y Office 365 durante toda tu carrera`;
+
+    const btn = document.getElementById("btn");
+
+    btn.addEventListener("click", () => {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(texto).then(() => {
+          btn.textContent = "¡Copiado!";
+        }).catch(() => usarFallback());
+      } else {
+        usarFallback();
+      }
+    });
+
+    function usarFallback() {
+      const area = document.createElement("textarea");
+      area.value = texto;
+      document.body.appendChild(area);
+      area.select();
+      document.execCommand("copy");
+      document.body.removeChild(area);
+      btn.textContent = "¡Copiado!";
+    }
+  </script>
+</body>
+</html>
