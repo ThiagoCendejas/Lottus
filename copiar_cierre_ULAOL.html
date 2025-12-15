@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>COPIAR MENSAJE</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      background: transparent;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    button {
+      padding: 1.6em 3.2em;          /* 🔥 BOTÓN GRANDE */
+      background: #00837e;
+      color: white;
+      font-size: 1.5em;
+      font-weight: bold;
+      border: none;
+      border-radius: 14px;
+      cursor: pointer;
+      box-shadow: 0 6px 10px rgba(0,0,0,0.25);
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 8px 14px rgba(0,0,0,0.3);
+    }
+
+    button:active {
+      transform: scale(0.98);
+    }
+  </style>
+</head>
+<body>
+
+  <button id="btn">COPIAR MENSAJE</button>
+
+  <script>
+    const texto = `Genial me alegra, imaginate si te gusta (menciona lo que le haya gustado más de ULA) te vas a maravillar del monto de inversión. Con nosotros  la inversión por materia (colegiatura) es de *$4,135 MXN + Plataforma Pottencia $200*, con los siguientes gastos administrativos:
+    
+*- Inscripción:* $1,500 MXN (pago único)
+*- Reinscripción:* $1,200 MXN (4 meses)
+*- Reincorporación de SEP:* $1,000 MXN (4 meses)
+
+El pago se realiza cada *3 semanas* para que se genere la carga de la materia.
+
+Pero como nuestras clases inician la semana del 12  tenemos *dos becas* para ti ya que estamos en cierre de inscripciones, ¿Quieres conocer tu beca? 🙂‍↕️
+
+La *primer beca* consiste en una beca del *52% dentro de cada materia*, es decir: 
+
+*- Colegiatura de $1,985 MXN*  (DURACIÓN DE LA LICENCIATURA)
+*- Inscripción:* Gratis
+*- Reinscripción:* Gratis (DURACIÓN DEL PROGRAMA)
+*- Reincorporación de SEP:* $499 (cada 4 meses)
+*- Plataforma Pottencia:* $200 (no olvides contemplar el incremento anual)
+
+La *seguda beca* consiste en que si te incorporas hoy mismo y pagas por nuestro portal tu primer materia (colegiatura) la pagarías en *$620.31* ☺️
+
+*- Reincorporación de SEP:* $499.00 MXN (4 meses)
+
+Esta segunda opción representaría un ahorro de ....
+🥳 *Anulación de inscripción y reinscripción* ☺️
+
+*Titulación: $21,700 - 50% de descuento en titulación*`;
+    const btn = document.getElementById("btn");
+
+    btn.addEventListener("click", () => {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(texto).then(() => {
+          btn.textContent = "¡Copiado!";
+        }).catch(() => usarFallback());
+      } else {
+        usarFallback();
+      }
+    });
+
+    function usarFallback() {
+      const area = document.createElement("textarea");
+      area.value = texto;
+      document.body.appendChild(area);
+      area.select();
+      document.execCommand("copy");
+      document.body.removeChild(area);
+      btn.textContent = "¡Copiado!";
+    }
+  </script>
+</body>
+</html>
